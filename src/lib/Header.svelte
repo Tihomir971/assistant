@@ -8,7 +8,7 @@
 		HeaderGlobalAction
 	} from 'carbon-components-svelte';
 	import { Notification20, UserAvatar20, AppSwitcher20 } from 'carbon-icons-svelte';
-	/* import { page } from '$app/stores'; */
+	import { page } from '$app/stores';
 </script>
 
 <Header company="KALISI" platformName="Assistant" href="/">
@@ -16,8 +16,12 @@
 		<SkipToContent />
 	</div>
 	<HeaderNav>
-		<HeaderNavItem text="Repositories" href="/repos" sveltekit:prefetch />
-		<!-- aria-current={$page.path === '/repos' ? 'page' : undefined} -->
+		<HeaderNavItem
+			text="Repositories"
+			href="/repos"
+			sveltekit:prefetch
+			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+		/>
 	</HeaderNav>
 	<HeaderUtilities>
 		<HeaderGlobalAction aria-label="Notifications" icon={Notification20} />
