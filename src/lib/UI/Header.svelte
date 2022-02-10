@@ -17,8 +17,8 @@
 	</div>
 	<HeaderNav>
 		<HeaderNavItem
-			text="Repositories"
-			href="/repos"
+			text="Products"
+			href="/catalog/products"
 			sveltekit:prefetch
 			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 		/>
