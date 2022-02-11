@@ -22,6 +22,12 @@
 			sveltekit:prefetch
 			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 		/>
+		<HeaderNavItem
+			text="Categories"
+			href="/catalog/categories"
+			sveltekit:prefetch
+			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+		/>
 	</HeaderNav>
 	<HeaderUtilities>
 		<HeaderGlobalAction aria-label="Notifications" icon={Notification20} />

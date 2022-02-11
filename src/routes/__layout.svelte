@@ -1,5 +1,6 @@
 <script>
 	import 'carbon-components-svelte/css/g90.css';
+
 	import { Content, Grid } from 'carbon-components-svelte';
 	import Header from '$lib/UI/Header.svelte';
 </script>
@@ -11,3 +12,6 @@
 		<slot />
 	</Grid>
 </Content>
+
+<style>
+</style>

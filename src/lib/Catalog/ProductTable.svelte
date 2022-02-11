@@ -1,56 +1,68 @@
 <script>
-	import { DataTable } from 'carbon-components-svelte';
+	import { supabase } from '$lib/supabaseClient';
+	import {
+		Button,
+		DataTable,
+		Toolbar,
+		ToolbarContent,
+		ToolbarSearch,
+		ToolbarMenu,
+		ToolbarMenuItem
+	} from 'carbon-components-svelte';
+	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+
+	export let activeCat = 18;
+
+	async function fetchData() {
+		const user = supabase.auth.user();
+
+		let { data, error } = await supabase
+			.from('catalog_products')
+			.select()
+			.eq('product_category_id', activeCat);
+		if (error) throw new Error(error.message);
+		return data;
+	}
+	let promise = fetchData();
 </script>
 
-<DataTable
-	headers={[
-		{ key: 'name', value: 'Name' },
-		{ key: 'protocol', value: 'Protocol' },
-		{ key: 'port', value: 'Port' },
-		{ key: 'rule', value: 'Rule' }
-	]}
-	rows={[
-		{
-			id: 'a',
-			name: 'Load Balancer 3',
-			protocol: 'HTTP',
-			port: 3000,
-			rule: 'Round robin'
-		},
-		{
-			id: 'b',
-			name: 'Load Balancer 1',
-			protocol: 'HTTP',
-			port: 443,
-			rule: 'Round robin'
-		},
-		{
-			id: 'c',
-			name: 'Load Balancer 2',
-			protocol: 'HTTP',
-			port: 80,
-			rule: 'DNS delegation'
-		},
-		{
-			id: 'd',
-			name: 'Load Balancer 6',
-			protocol: 'HTTP',
-			port: 3000,
-			rule: 'Round robin'
-		},
-		{
-			id: 'e',
-			name: 'Load Balancer 4',
-			protocol: 'HTTP',
-			port: 443,
-			rule: 'Round robin'
-		},
-		{
-			id: 'f',
-			name: 'Load Balancer 5',
-			protocol: 'HTTP',
-			port: 80,
-			rule: 'DNS delegation'
-		}
-	]}
-/>
+{#await promise}
+	<p>Fetching data...</p>
+{:then data}
+	<DataTable
+		headers={[
+			{ key: 'id', value: 'ID' },
+			{ key: 'sku', value: 'SKU' },
+			{ key: 'name', value: 'Name' },
+			{ key: 'product_category_id', value: 'Parent' },
+			{ key: 'created_at', value: 'Created' }
+		]}
+		rows={data}
+		sortable
+	>
+		<svelte:fragment slot="cell" let:row let:cell>
+			{#if row[cell.key] === null}
+				<span />
+			{:else}
+				{row[cell.key]}
+			{/if}
+		</svelte:fragment>
+		<Toolbar>
+			<ToolbarContent>
+				<ToolbarSearch />
+				<Button
+					kind="tertiary"
+					size="field"
+					iconDescription="Refresh"
+					icon={UpdateNow20}
+					on:click={() => {
+						promise = fetchData();
+					}}
+				/>
+			</ToolbarContent>
+		</Toolbar>
+	</DataTable>
+{:catch error}
+	<p>Something went wrong while fetching the data:</p>
+	<pre>{error}</pre>
+{/await}

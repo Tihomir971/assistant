@@ -1,35 +1,80 @@
 <script>
 	import { supabase } from '$lib/supabaseClient';
-	import { TreeView } from 'carbon-components-svelte';
+	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+	import {
+		TreeView,
+		Toolbar,
+		Button,
+		ToolbarContent,
+		ToolbarSearch,
+		ToolbarMenu,
+		ToolbarMenuItem
+	} from 'carbon-components-svelte';
 
-	let loading = true;
+	let activeId = null;
 
-	async function getData() {
-		loading = true;
+	async function fetchData() {
 		const user = supabase.auth.user();
 
-		let { data: children, error } = await supabase
-			.from('catalog_category')
-			.select('id,name,parent_id')
-			.limit(5);
+		let { data, error } = await supabase.from('catalog_category').select('id,name,parent_id');
 		if (error) throw new Error(error.message);
 
 		//Change column name
-		children.forEach((item) => {
+		data.forEach((item) => {
 			item.text = item.name;
 			delete item.name;
-			delete item.parent_id;
 		});
+
+		//iz modula
+		//	const children = arrayToTree(data, { parentId: 'parent_id', dataField: null });
+
+		const createDataTree = (dataset) => {
+			const hashTable = Object.create(null);
+			dataset.forEach((aData) => (hashTable[aData.id] = { ...aData, children: [] }));
+			const dataTree = [];
+			dataset.forEach((aData) => {
+				if (aData.parent_id) hashTable[aData.parent_id].children.push(hashTable[aData.id]);
+				else dataTree.push(hashTable[aData.id]);
+			});
+			return dataTree;
+		};
+
+		let children = createDataTree(data);
+
+		//remove From Tree :(
 
 		return children;
 	}
+	let promise = fetchData();
 </script>
 
-{#await getData()}
+<Toolbar>
+	<ToolbarContent>
+		<ToolbarSearch />
+		<Button
+			kind="tertiary"
+			size="field"
+			iconDescription="Refresh"
+			icon={UpdateNow20}
+			on:click={() => {
+				promise = fetchData();
+			}}
+		/>
+	</ToolbarContent>
+</Toolbar>
+{#await promise}
 	<p>Fetching data...</p>
 {:then children}
-	<TreeView {children} labelText="Categories" />
+	<TreeView
+		style="max-height: 900px; overflow: auto"
+		{children}
+		bind:activeId
+		on:select={({ detail }) => console.log('select', detail)}
+		on:toggle={({ detail }) => console.log('toggle', detail)}
+		on:focus={({ detail }) => console.log('focus', detail)}
+	/>
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
 {/await}
+Active Category: {activeId}
