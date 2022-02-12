@@ -1,4 +1,6 @@
 <script>
+	import { catalogStore } from './catalogStore.js';
+
 	import { supabase } from '$lib/supabaseClient';
 	import {
 		Button,
@@ -11,7 +13,7 @@
 	} from 'carbon-components-svelte';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 
-	export let activeCat = 18;
+	$: $catalogStore, fetchData();
 
 	async function fetchData() {
 		const user = supabase.auth.user();
@@ -19,7 +21,7 @@
 		let { data, error } = await supabase
 			.from('catalog_products')
 			.select()
-			.eq('product_category_id', activeCat);
+			.eq('product_category_id', $catalogStore);
 		if (error) throw new Error(error.message);
 		return data;
 	}
@@ -29,6 +31,7 @@
 {#await promise}
 	<p>Fetching data...</p>
 {:then data}
+	{$catalogStore}
 	<DataTable
 		headers={[
 			{ key: 'id', value: 'ID' },

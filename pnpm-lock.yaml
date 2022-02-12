@@ -4,7 +4,7 @@ specifiers:
   '@supabase/supabase-js': ^1.30.0
   '@sveltejs/adapter-auto': next
   '@sveltejs/kit': next
-  carbon-components-svelte: ^0.58.0
+  carbon-components-svelte: ^0.58.1
   carbon-icons-svelte: ^10.44.4
   carbon-preprocess-svelte: ^0.6.0
   eslint: ^7.32.0
@@ -18,7 +18,7 @@ devDependencies:
   '@supabase/supabase-js': 1.30.0
   '@sveltejs/adapter-auto': 1.0.0-next.17
   '@sveltejs/kit': 1.0.0-next.266_svelte@3.46.4
-  carbon-components-svelte: 0.58.0
+  carbon-components-svelte: 0.58.1
   carbon-icons-svelte: 10.44.4
   carbon-preprocess-svelte: 0.6.0_svelte@3.46.4
   eslint: 7.32.0
@@ -320,8 +320,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /carbon-components-svelte/0.58.0:
-    resolution: {integrity: sha512-I2OA9kn7FzidynFFLSvfmixQRqkLqa+qjnKMgCdonSD59zNVUB4bBOgSxaEujeAUJphrL6Hjm9kpm9EQRjX96A==}
+  /carbon-components-svelte/0.58.1:
+    resolution: {integrity: sha512-ZzP317SCwyUYNoYQzPZWW33dD87ieiIlt0mfSZcxqwPu1hhWepcgnRC1Aql19TFg8dexyhiQSCocZiqQo6q3jg==}
     dependencies:
       flatpickr: 4.6.9
     dev: true

@@ -1,4 +1,5 @@
 <script>
+	import { catalogStore } from './catalogStore.js';
 	import { supabase } from '$lib/supabaseClient';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 	import {
@@ -11,7 +12,7 @@
 		ToolbarMenuItem
 	} from 'carbon-components-svelte';
 
-	let activeId = null;
+	export let activeId = null;
 
 	async function fetchData() {
 		const user = supabase.auth.user();
@@ -65,9 +66,16 @@
 {#await promise}
 	<p>Fetching data...</p>
 {:then children}
-	<TreeView style="max-height: 900px; overflow: auto" {children} bind:activeId />
+	<TreeView
+		style="max-height: 900px; overflow: auto"
+		{children}
+		bind:activeId
+		on:select={() => {
+			catalogStore.set(activeId);
+		}}
+	/>
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
 {/await}
-Active Category: {activeId}
+Active Category: {activeId} and {$catalogStore}
