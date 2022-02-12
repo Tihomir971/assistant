@@ -65,14 +65,7 @@
 {#await promise}
 	<p>Fetching data...</p>
 {:then children}
-	<TreeView
-		style="max-height: 900px; overflow: auto"
-		{children}
-		bind:activeId
-		on:select={({ detail }) => console.log('select', detail)}
-		on:toggle={({ detail }) => console.log('toggle', detail)}
-		on:focus={({ detail }) => console.log('focus', detail)}
-	/>
+	<TreeView style="max-height: 900px; overflow: auto" {children} bind:activeId />
 {:catch error}
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>

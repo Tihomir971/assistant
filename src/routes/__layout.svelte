@@ -1,17 +1,17 @@
 <script>
-	import 'carbon-components-svelte/css/g90.css';
+	import 'carbon-components-svelte/css/all.css';
+	import Theme from '$lib/UI/Theme.svelte';
 
 	import { Content, Grid } from 'carbon-components-svelte';
 	import Header from '$lib/UI/Header.svelte';
 </script>
 
-<Header />
+<Theme persist>
+	<Header />
 
-<Content style="min-height: calc(100vh - 3rem)">
-	<Grid fullWidth>
-		<slot />
-	</Grid>
-</Content>
-
-<style>
-</style>
+	<Content style="min-height: calc(100vh - 3rem); background: none">
+		<Grid fullWidth>
+			<slot />
+		</Grid>
+	</Content>
+</Theme>

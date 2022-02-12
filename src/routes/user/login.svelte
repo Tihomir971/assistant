@@ -23,7 +23,6 @@
 				email: email,
 				password: password
 			});
-			console.log(user);
 			if (error) throw error;
 		} catch (error) {
 			alert(error.error_description || error.message);
