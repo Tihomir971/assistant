@@ -13,7 +13,7 @@
 		"@supabase/supabase-js": "^1.30.0",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
-		"carbon-components-svelte": "^0.58.1",
+		"carbon-components-svelte": "^0.58.2",
 		"carbon-icons-svelte": "^10.44.4",
 		"carbon-preprocess-svelte": "^0.6.0",
 		"eslint": "^7.32.0",

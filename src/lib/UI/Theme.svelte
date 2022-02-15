@@ -3,7 +3,7 @@
 	export let persistKey = 'carbon-theme';
 	export const themes = ['white', 'g10', 'g80', 'g90', 'g100'];
 	import { onMount, afterUpdate } from 'svelte';
-	import { theme } from '$lib/UI/store';
+	import { theme } from '$lib/UI/storeUI';
 	const isValidTheme = (value) => themes.includes(value);
 	onMount(() => {
 		const persisted_theme = localStorage.getItem(persistKey);

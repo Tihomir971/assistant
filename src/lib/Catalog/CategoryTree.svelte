@@ -12,12 +12,13 @@
 		ToolbarMenuItem
 	} from 'carbon-components-svelte';
 
-	export let activeId = null;
+	export let activeId = '';
 
 	async function fetchData() {
 		const user = supabase.auth.user();
+		console.log(user);
 
-		let { data, error } = await supabase.from('catalog_category').select('id,name,parent_id');
+		let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
 		if (error) throw new Error(error.message);
 
 		//Change column name
@@ -26,9 +27,7 @@
 			delete item.name;
 		});
 
-		//iz modula
-		//	const children = arrayToTree(data, { parentId: 'parent_id', dataField: null });
-
+		//Create Tree from Array
 		const createDataTree = (dataset) => {
 			const hashTable = Object.create(null);
 			dataset.forEach((aData) => (hashTable[aData.id] = { ...aData, children: [] }));
@@ -53,7 +52,7 @@
 	<ToolbarContent>
 		<ToolbarSearch />
 		<Button
-			kind="tertiary"
+			kind="ghost"
 			size="field"
 			iconDescription="Refresh"
 			icon={UpdateNow20}
@@ -68,6 +67,7 @@
 {:then children}
 	<TreeView
 		style="max-height: 900px; overflow: auto"
+		hideLabel="true"
 		{children}
 		bind:activeId
 		on:select={() => {
@@ -78,4 +78,3 @@
 	<p>Something went wrong while fetching the data:</p>
 	<pre>{error}</pre>
 {/await}
-Active Category: {activeId} and {$catalogStore}
