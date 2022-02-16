@@ -32,7 +32,6 @@
 	<DataTableSkeleton showHeader={false} />
 {:then data}
 	<DataTable
-		style="max-height: 900px"
 		headers={[
 			{ key: 'id', value: 'ID' },
 			{ key: 'sku', value: 'SKU' },

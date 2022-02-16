@@ -9,7 +9,7 @@
 <Theme persist>
 	<Header />
 
-	<Content style="min-height: calc(100vh - 3rem); background: none">
+	<Content style="padding-left: 0;padding-right: 0;background: none">
 		<Grid fullWidth>
 			<slot />
 		</Grid>

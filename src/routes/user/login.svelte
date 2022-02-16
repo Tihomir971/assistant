@@ -19,16 +19,14 @@
 	const handleLogin = async () => {
 		try {
 			loading = true;
-			const { user, error } = await supabase.auth.signIn({
-				email: email,
-				password: password
-			});
+			const { user, error } = await supabase.auth.signIn({ email, password });
 			if (error) throw error;
 		} catch (error) {
+			console.log(error);
 			alert(error.error_description || error.message);
 		} finally {
 			loading = false;
-			goto('catalog/products');
+			goto('/catalog/products');
 		}
 	};
 </script>
