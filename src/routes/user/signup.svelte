@@ -23,16 +23,18 @@
 
 <Tile style="min-width: 440px">
 	<Form on:submit={handleLogin}>
-		<h1>Log in</h1>
+		<h1>Create your Account</h1>
 		<div>
-			Don't have an account?
-			<Link inline href="/user/signup">Sign up</Link>.
+			Already have an account?
+			<Link inline href="/user/login">Sign in instead</Link>.
 		</div>
 		<FormGroup>
 			<TextInput labelText="Email" placeholder="Enter user name..." bind:value={email} />
 		</FormGroup>
 		<FormGroup>
 			<TextInput labelText="Password" placeholder="Enter password..." bind:value={password} />
+
+			<TextInput placeholder="Repeat password..." bind:value={password} />
 		</FormGroup>
 		<Button style="float: right; width: 50%" type="submit" icon={Login16} disabled={loading}
 			>{loading ? 'Loading' : 'Log In'}</Button

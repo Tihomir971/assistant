@@ -1,7 +1,7 @@
 <script>
-	import { catalogStore } from './catalogStore.js';
-
+	import { Row, Column } from 'carbon-components-svelte';
 	import { supabase } from '$lib/supabaseClient';
+	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 	import {
 		Button,
 		DataTable,
@@ -11,17 +11,11 @@
 		DataTableSkeleton,
 		ToolbarMenuItem
 	} from 'carbon-components-svelte';
-	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
-
-	$: $catalogStore, (promise = fetchData());
 
 	async function fetchData() {
 		const user = supabase.auth.user();
 
-		let { data, error } = await supabase
-			.from('product')
-			.select()
-			.eq('product_category_id', $catalogStore);
+		let { data, error } = await supabase.from('ad_user').select();
 		if (error) throw new Error(error.message);
 		return data;
 	}
@@ -34,21 +28,20 @@
 	<DataTable
 		headers={[
 			{ key: 'id', value: 'ID' },
-			{ key: 'sku', value: 'SKU' },
-			{ key: 'name', value: 'Name' },
-			{
-				key: 'product_category_id',
-				value: 'Parent',
-				display: (cost) => cost + ' €'
-			},
+			{ key: 'enabled', value: 'Enabled' },
+			{ key: 'usename', value: 'username' },
+			{ key: 'avatar_url', value: 'Avatar' },
+			{ key: 'website', value: 'Web Site' },
+			{ key: 'ad_clent_id', value: 'Client' },
 			{
 				key: 'created',
 				value: 'Created',
 				display: (date) => date.toLocaleString('en-GB')
 			},
 			{
-				key: 'qtyonhand',
-				value: 'Quantity'
+				key: 'updated',
+				value: 'Updated',
+				display: (date) => date.toLocaleString('en-GB')
 			}
 		]}
 		rows={data}

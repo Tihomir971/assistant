@@ -1,6 +1,4 @@
 <script>
-	import { catalogStore } from './catalogStore.js';
-
 	import { supabase } from '$lib/supabaseClient';
 	import {
 		Button,
@@ -13,15 +11,10 @@
 	} from 'carbon-components-svelte';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 
-	$: $catalogStore, (promise = fetchData());
-
 	async function fetchData() {
 		const user = supabase.auth.user();
 
-		let { data, error } = await supabase
-			.from('product')
-			.select()
-			.eq('product_category_id', $catalogStore);
+		let { data, error } = await supabase.from('warehouse').select();
 		if (error) throw new Error(error.message);
 		return data;
 	}
@@ -34,21 +27,17 @@
 	<DataTable
 		headers={[
 			{ key: 'id', value: 'ID' },
-			{ key: 'sku', value: 'SKU' },
+			{ key: 'isactive', value: 'Activ' },
+			{ key: 'code', value: 'Code' },
 			{ key: 'name', value: 'Name' },
-			{
-				key: 'product_category_id',
-				value: 'Parent',
-				display: (cost) => cost + ' €'
-			},
+			{ key: 'ad_client_id', value: 'Client' },
 			{
 				key: 'created',
 				value: 'Created',
-				display: (date) => date.toLocaleString('en-GB')
-			},
-			{
-				key: 'qtyonhand',
-				value: 'Quantity'
+				display: (date) => {
+					const event = new Date(date);
+					return event.toLocaleTimeString('sr-Latn');
+				}
 			}
 		]}
 		rows={data}

@@ -36,10 +36,15 @@
 		<h1>Log in</h1>
 		<div>
 			Don't have an account?
-			<Link inline href="/user/signup">Sign up</Link>.
+			<Link inline href="/user/signup">Create account</Link>.
 		</div>
 		<FormGroup>
-			<TextInput labelText="Email" placeholder="Enter user name..." bind:value={email} />
+			<TextInput
+				autocomplete="username"
+				labelText="Email"
+				placeholder="Enter user name..."
+				bind:value={email}
+			/>
 		</FormGroup>
 		<FormGroup>
 			<PasswordInput

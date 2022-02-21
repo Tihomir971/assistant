@@ -33,7 +33,7 @@
 		} catch (error) {
 			alert(error.message);
 		} finally {
-			goto('user/login');
+			goto('/user/login');
 		}
 	}
 </script>
@@ -55,6 +55,19 @@
 			sveltekit:prefetch
 			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 		/>
+		<HeaderNavItem
+			text="Warehouse"
+			href="/warehouse/warehouse"
+			sveltekit:prefetch
+			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+		/>
+		<HeaderNavItem
+			text="User Profile"
+			href="/user/profile"
+			sveltekit:prefetch
+			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+		/>
+		<HeaderNavItem text="Import" href="/catalog/import" sveltekit:prefetch />
 	</HeaderNav>
 	<HeaderUtilities>
 		<HeaderGlobalAction aria-label="Notifications" icon={Notification24} />
