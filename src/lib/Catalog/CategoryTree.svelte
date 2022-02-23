@@ -7,16 +7,13 @@
 		Toolbar,
 		Button,
 		ToolbarContent,
-		ToolbarSearch,
-		ToolbarMenu,
-		ToolbarMenuItem
+		ToolbarSearch
 	} from 'carbon-components-svelte';
 
 	export let activeId = '';
 
 	async function fetchData() {
 		const user = supabase.auth.user();
-		console.log(user);
 
 		let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
 		if (error) throw new Error(error.message);
@@ -28,18 +25,43 @@
 		});
 
 		//Create Tree from Array
-		const createDataTree = (dataset) => {
+		function createDataTree(dataset) {
 			const hashTable = Object.create(null);
 			dataset.forEach((aData) => (hashTable[aData.id] = { ...aData, children: [] }));
+
 			const dataTree = [];
 			dataset.forEach((aData) => {
 				if (aData.parent_id) hashTable[aData.parent_id].children.push(hashTable[aData.id]);
 				else dataTree.push(hashTable[aData.id]);
+				delete hashTable[aData.id].parent_id;
 			});
+
+			const cleanUp = (data) =>
+				data.forEach((n) =>
+					n.children && n.children.length ? cleanUp(n.children) : delete n.children
+				);
+
+			cleanUp(dataTree);
+
+			console.log('dataTree', dataTree);
 			return dataTree;
-		};
+		}
 
 		let children = createDataTree(data);
+
+		/* 		const findObj = (arr) => {
+			for (const item of arr) {
+				if (item.children.length === 0) {
+					console.log('Before Del', item);
+					delete item.parent_id;
+					console.log('After Del', item);
+				}
+				if (item.children.length > 0) findObj(item.children);
+				return;
+			}
+		};
+		findObj(children);
+		console.log(children); */
 
 		//remove From Tree :(
 
