@@ -1,9 +1,8 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { user } from '$lib/sessionStore';
-	import { supabase } from '$lib/supabaseClient';
 
+	import { page } from '$app/stores';
+	import db from '$lib/db';
 	import {
 		SkipToContent,
 		Header,
@@ -18,24 +17,7 @@
 		Theme
 	} from 'carbon-components-svelte';
 	import { Notification24, UserAvatar24, ShoppingCart24 } from 'carbon-icons-svelte';
-
-	user.set(supabase.auth.user());
-
-	supabase.auth.onAuthStateChange((_, session) => {
-		user.set(session.user);
-	});
-
-	async function signOut() {
-		console.log('odoh');
-		try {
-			let { error } = await supabase.auth.signOut();
-			if (error) throw error;
-		} catch (error) {
-			alert(error.message);
-		} finally {
-			goto('/user/login');
-		}
-	}
+	let user = db.user;
 </script>
 
 <Header company="KALISI" platformName="Assistant" href="/">
@@ -43,31 +25,34 @@
 		<SkipToContent />
 	</div>
 	<HeaderNav>
-		<HeaderNavItem
-			text="Products"
-			href="/catalog/products"
-			sveltekit:prefetch
-			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
-		/>
-		<HeaderNavItem
-			text="Categories"
-			href="/catalog/categories"
-			sveltekit:prefetch
-			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
-		/>
-		<HeaderNavItem
-			text="Warehouse"
-			href="/warehouse/warehouse"
-			sveltekit:prefetch
-			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
-		/>
-		<HeaderNavItem
-			text="User Profile"
-			href="/user/profile"
-			sveltekit:prefetch
-			aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
-		/>
-		<HeaderNavItem text="Import" href="/catalog/import" sveltekit:prefetch />
+		{#if $user}
+			<HeaderNavItem
+				text="Products"
+				href="/catalog/products"
+				sveltekit:prefetch
+				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+			/>
+			<HeaderNavItem
+				text="Categories"
+				href="/catalog/categories"
+				sveltekit:prefetch
+				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+			/>
+			<HeaderNavItem
+				text="Warehouse"
+				href="/warehouse/warehouse"
+				sveltekit:prefetch
+				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+			/>
+			<HeaderNavItem
+				text="User Profile"
+				href="/user/profile"
+				sveltekit:prefetch
+				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
+			/>
+			<HeaderNavItem text="Import" href="/catalog/import" sveltekit:prefetch />
+			}
+		{/if}
 	</HeaderNav>
 	<HeaderUtilities>
 		<HeaderGlobalAction aria-label="Notifications" icon={Notification24} />
@@ -78,7 +63,11 @@
 			<HeaderPanelLinks>
 				<Theme persist="true" render="select" />
 				<HeaderPanelDivider />
-				<HeaderPanelLink on:click={signOut}>Logout</HeaderPanelLink>
+				{#if $user}
+					<HeaderPanelLink on:click={db.signOut}>Logout</HeaderPanelLink>
+				{:else}
+					<HeaderPanelLink on:click={goto('/user/login')}>Login</HeaderPanelLink>
+				{/if}
 			</HeaderPanelLinks>
 		</HeaderAction>
 	</HeaderUtilities>

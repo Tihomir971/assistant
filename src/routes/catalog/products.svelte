@@ -5,6 +5,6 @@
 </script>
 
 <Row>
-	<Column lg={3}><CategoryTree /></Column>
-	<Column lg={13}><ProductTable /></Column>
+	<Column lg={3} noGutter><CategoryTree /></Column>
+	<Column lg={13} noGutterRight><ProductTable /></Column>
 </Row>

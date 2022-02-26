@@ -1,7 +1,8 @@
 <script>
 	import { catalogStore } from './catalogStore.js';
-	import { supabase } from '$lib/supabaseClient';
+	import { supabase } from '$lib/db';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+	import Minimize20 from 'carbon-icons-svelte/lib/Minimize20';
 	import {
 		TreeView,
 		Toolbar,
@@ -11,10 +12,13 @@
 	} from 'carbon-components-svelte';
 
 	export let activeId = '';
+	let value = '';
+	let treeview = null;
+	let expandedIds = [];
+
+	/* $: value, treeview?.expandNodes((node) => /^IBM/.test(node.text)); */
 
 	async function fetchData() {
-		const user = supabase.auth.user();
-
 		let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
 		if (error) throw new Error(error.message);
 
@@ -43,27 +47,10 @@
 
 			cleanUp(dataTree);
 
-			console.log('dataTree', dataTree);
 			return dataTree;
 		}
 
 		let children = createDataTree(data);
-
-		/* 		const findObj = (arr) => {
-			for (const item of arr) {
-				if (item.children.length === 0) {
-					console.log('Before Del', item);
-					delete item.parent_id;
-					console.log('After Del', item);
-				}
-				if (item.children.length > 0) findObj(item.children);
-				return;
-			}
-		};
-		findObj(children);
-		console.log(children); */
-
-		//remove From Tree :(
 
 		return children;
 	}
@@ -72,7 +59,6 @@
 
 <Toolbar>
 	<ToolbarContent>
-		<ToolbarSearch />
 		<Button
 			kind="ghost"
 			size="field"
@@ -82,6 +68,14 @@
 				promise = fetchData();
 			}}
 		/>
+		<Button
+			kind="ghost"
+			size="field"
+			iconDescription="Collapse All"
+			icon={Minimize20}
+			on:click={treeview?.collapseAll}
+		/>
+		<ToolbarSearch bind:value />
 	</ToolbarContent>
 </Toolbar>
 {#await promise}
@@ -92,7 +86,15 @@
 		hideLabel="true"
 		{children}
 		bind:activeId
+		bind:expandedIds
+		bind:this={treeview}
+		on:toggle={() => {
+			console.log('activeId', activeId);
+			console.log('expandedIds', expandedIds);
+		}}
 		on:select={() => {
+			console.log('Sel activeId', activeId);
+			console.log('Sel expandedIds', expandedIds);
 			catalogStore.set(activeId);
 		}}
 	/>

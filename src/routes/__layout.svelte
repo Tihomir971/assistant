@@ -8,7 +8,9 @@
 <Theme persist>
 	<Header />
 
-	<Content style="padding-left: 0;padding-right: 0;background: none">
+	<Content
+		style="background-image: url('../static/sun-tornado.svg'); background-size: cover;padding-left: 0; padding-right: 0; min-height: calc(100vh - 3rem)"
+	>
 		<Grid fullWidth>
 			<slot />
 		</Grid>

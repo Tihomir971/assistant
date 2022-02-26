@@ -1,23 +1,19 @@
 <script>
 	import { catalogStore } from './catalogStore.js';
-
-	import { supabase } from '$lib/supabaseClient';
+	import { supabase } from '$lib/db';
 	import {
 		Button,
 		DataTable,
 		Toolbar,
 		ToolbarContent,
 		ToolbarSearch,
-		DataTableSkeleton,
-		ToolbarMenuItem
+		DataTableSkeleton
 	} from 'carbon-components-svelte';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 
 	$: $catalogStore, (promise = fetchData());
 
 	async function fetchData() {
-		const user = supabase.auth.user();
-
 		let { data, error } = await supabase
 			.from('product')
 			.select()
@@ -33,7 +29,6 @@
 {:then data}
 	<DataTable
 		headers={[
-			{ key: 'id', value: 'ID' },
 			{ key: 'sku', value: 'SKU' },
 			{ key: 'name', value: 'Name' },
 			{

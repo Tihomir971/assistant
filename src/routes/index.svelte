@@ -1,12 +1,6 @@
 <script>
-	import { user } from '$lib/sessionStore';
-	import { supabase } from '$lib/supabaseClient';
-
-	user.set(supabase.auth.user());
-
-	supabase.auth.onAuthStateChange((_, session) => {
-		user.set(session.user);
-	});
+	import db from '$lib/db';
+	let user = db.user;
 </script>
 
 <div class="container" style="padding: 50px 0 100px 0;">

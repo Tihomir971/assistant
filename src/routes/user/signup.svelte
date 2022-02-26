@@ -1,6 +1,6 @@
 <script>
 	import { Tile, Form, FormGroup, TextInput, Button, Link } from 'carbon-components-svelte';
-	import { supabase } from '$lib/supabaseClient';
+	import { supabase } from '$lib/db';
 	import Login16 from 'carbon-icons-svelte/lib/Login16';
 
 	let loading = false;

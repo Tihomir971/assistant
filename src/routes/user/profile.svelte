@@ -1,6 +1,6 @@
 <script>
 	import { Row, Column } from 'carbon-components-svelte';
-	import { supabase } from '$lib/supabaseClient';
+	import { supabase } from '$lib/db';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 	import {
 		Button,
