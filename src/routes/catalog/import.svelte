@@ -6,7 +6,6 @@
 	let product = [];
 
 	function handleChange(e) {
-		product = [];
 		for (let f of e.detail) {
 			Papa.parse(f, {
 				header: true,
@@ -14,12 +13,12 @@
 				step: function (results, parser) {
 					var hash = {};
 
-					// element.sku = results.data.sku;
-					// element.brand = results.data.brand;
-					// element.mpn = results.data.mpn;
+					hash.sku = results.data.sku;
+					hash.brand = results.data.brand;
+					hash.mpn = results.data.mpn;
 					hash.name = results.data.name;
-					// element.gtin = results.data.gtin;
-					// element.updated = new Date();
+					element.gtin = results.data.gtin;
+					element.updated = new Date();
 					product.push(hash);
 				}
 			});
@@ -28,24 +27,22 @@
 	}
 
 	async function createProduct() {
-		console.log('In function');
-		product.forEach((element) => {
-			async () => {
-				try {
-					// const user = supabase.auth.user();
-					console.log('Row data:', product);
-
-					let { error } = await supabase.from('product').insert(element);
-					if (error) throw error;
-				} catch (error) {
-					console.log('Update error', error);
-					alert(error.message);
-				}
-			};
-		});
+		console.log(product);
+		for (let i = 0; i < product.length; i++) {
+			console.log('Row data:', product[i]);
+			let { error } = await supabase.from('product').insert({
+				sku: product[i].sku,
+				brand: product[i].brand,
+				mpn: product[i].mpn,
+				name: product[i].name,
+				gtin: product[i].gtin,
+				updated: product[i].updated
+			});
+		}
 	}
 </script>
 
+{{ product }}
 <FileUploader
 	accept={['.csv']}
 	buttonLabel="Add .CSV file"

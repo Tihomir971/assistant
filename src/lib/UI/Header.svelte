@@ -29,29 +29,24 @@
 			<HeaderNavItem
 				text="Products"
 				href="/catalog/products"
-				sveltekit:prefetch
 				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 			/>
 			<HeaderNavItem
 				text="Categories"
 				href="/catalog/categories"
-				sveltekit:prefetch
 				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 			/>
 			<HeaderNavItem
 				text="Warehouse"
 				href="/warehouse/warehouse"
-				sveltekit:prefetch
 				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 			/>
 			<HeaderNavItem
 				text="User Profile"
 				href="/user/profile"
-				sveltekit:prefetch
 				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 			/>
-			<HeaderNavItem text="Import" href="/catalog/import" sveltekit:prefetch />
-			}
+			<HeaderNavItem text="Import" href="/catalog/import" />
 		{/if}
 	</HeaderNav>
 	<HeaderUtilities>
