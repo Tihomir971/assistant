@@ -32,10 +32,10 @@ export default {
 	},
 	signOut() {
 		return supabase.auth.signOut();
-	},
-	async getCategory() {
-		let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
-		if (error) throw new Error(error.message);
-		return data;
 	}
+	// async getCategory() {
+	// 	let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
+	// 	if (error) throw new Error(error.message);
+	// 	return data;
+	// }
 };

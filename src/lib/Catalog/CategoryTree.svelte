@@ -1,7 +1,6 @@
 <script>
 	import { catalogStore } from './catalogStore.js';
-	import { supabase } from '$lib/db';
-	import db from '$lib/db';
+	import { selectCategory } from '$lib/stores/catalog';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 	import Minimize20 from 'carbon-icons-svelte/lib/Minimize20';
 	import {
@@ -22,7 +21,7 @@
 	async function fetchData() {
 		// let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
 		// if (error) throw new Error(error.message);
-		const data = await db.getCategory();
+		const data = await selectCategory();
 
 		//Change column name
 		data.forEach((item) => {
@@ -90,13 +89,7 @@
 		bind:activeId
 		bind:expandedIds
 		bind:this={treeview}
-		on:toggle={() => {
-			console.log('activeId', activeId);
-			console.log('expandedIds', expandedIds);
-		}}
 		on:select={() => {
-			console.log('Sel activeId', activeId);
-			console.log('Sel expandedIds', expandedIds);
 			catalogStore.set(activeId);
 		}}
 	/>

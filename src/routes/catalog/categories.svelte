@@ -1,5 +1,5 @@
 <script>
-	import CategoryTree from '$lib/Catalog/CategoryTree.svelte';
+	import CategoryTree from '$lib/catalog/CategoryTree.svelte';
 	import { Row, Column } from 'carbon-components-svelte';
 </script>
 

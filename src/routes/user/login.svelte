@@ -21,9 +21,6 @@
 		result = await db.signIn(email, password);
 		if (result.error) throw result.error;
 		else goto('/');
-
-		// loading = await db.signIn(email, password);
-		console.log('Login res', result);
 	}
 </script>
 

@@ -7,9 +7,11 @@
 		Toolbar,
 		ToolbarContent,
 		ToolbarSearch,
-		DataTableSkeleton
+		DataTableSkeleton,
+		ToolbarBatchActions
 	} from 'carbon-components-svelte';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+	import Save16 from 'carbon-icons-svelte/lib/Save16';
 
 	$: $catalogStore, (promise = fetchData());
 
@@ -22,34 +24,53 @@
 		return data;
 	}
 	let promise = fetchData();
+	let selectedRowIds = [];
 </script>
 
 {#await promise}
-	<DataTableSkeleton showHeader={false} />
+	<DataTableSkeleton showHeader={false} rows={2} />
 {:then data}
 	<DataTable
 		headers={[
 			{ key: 'sku', value: 'SKU' },
+			{ key: 'brand', value: 'Brand' },
+			{ key: 'mpn', value: 'MPN' },
 			{ key: 'name', value: 'Name' },
-			{
-				key: 'product_category_id',
-				value: 'Parent',
-				display: (cost) => cost + ' €'
-			},
-			{
-				key: 'created',
-				value: 'Created',
-				display: (date) => date.toLocaleString('en-GB')
-			},
+			// {
+			// 	key: 'created',
+			// 	value: 'Created',
+			// 	display: (date) => date.toLocaleString('en-GB')
+			// },
 			{
 				key: 'qtyonhand',
-				value: 'Quantity'
+				value: 'Qty.'
+			},
+			{
+				key: 'pricelastpo',
+				value: 'Last Price.'
+			},
+			{
+				key: 'special_price',
+				value: 'Spec. Price'
+			},
+			{
+				key: 'price',
+				value: 'Price'
+			},
+			{
+				key: 'condition',
+				value: 'Condition'
 			}
 		]}
 		rows={data}
+		batchSelection
+		bind:selectedRowIds
 		sortable
 	>
 		<Toolbar>
+			<ToolbarBatchActions>
+				<Button icon={Save16}>Save</Button>
+			</ToolbarBatchActions>
 			<ToolbarContent>
 				<ToolbarSearch />
 				<Button

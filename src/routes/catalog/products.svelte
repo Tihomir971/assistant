@@ -1,6 +1,6 @@
 <script>
-	import CategoryTree from '$lib/Catalog/CategoryTree.svelte';
-	import ProductTable from '$lib/Catalog/ProductTable.svelte';
+	import CategoryTree from '$lib/catalog/CategoryTree.svelte';
+	import ProductTable from '$lib/catalog/ProductTable.svelte';
 	import { Row, Column } from 'carbon-components-svelte';
 </script>
 
