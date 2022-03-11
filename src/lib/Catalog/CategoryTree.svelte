@@ -1,8 +1,10 @@
 <script>
-	import { catalogStore } from './catalogStore.js';
-	import { selectCategory } from '$lib/stores/catalog';
+	import { catalogStore, selectCategory } from '$lib/catalog/catalogStore';
+	// import { selectCategory } from '$lib/stores/catalog';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
 	import Minimize20 from 'carbon-icons-svelte/lib/Minimize20';
+	import AddAlt20 from 'carbon-icons-svelte/lib/AddAlt20';
+	import SubtractAlt20 from 'carbon-icons-svelte/lib/SubtractAlt20';
 	import {
 		TreeView,
 		Toolbar,
@@ -60,6 +62,24 @@
 
 <Toolbar>
 	<ToolbarContent>
+		<Button
+			kind="ghost"
+			size="field"
+			iconDescription="Add Category"
+			icon={AddAlt20}
+			on:click={() => {
+				// promise = fetchData();
+			}}
+		/>
+		<Button
+			kind="ghost"
+			size="field"
+			iconDescription="Delete Category"
+			icon={SubtractAlt20}
+			on:click={() => {
+				// promise = fetchData();
+			}}
+		/>
 		<Button
 			kind="ghost"
 			size="field"

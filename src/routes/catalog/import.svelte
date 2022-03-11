@@ -1,12 +1,7 @@
 <script>
 	import { FileUploader } from 'carbon-components-svelte';
 	import Papa from 'papaparse';
-	import {
-		selectCategory,
-		insertCategory,
-		updateProduct,
-		selectProduct
-	} from '$lib/stores/catalog';
+	import { selectCategory, insertCategory, upsertProduct } from '$lib/catalog/catalogStore';
 
 	function handleChange(e) {
 		const file = e.detail[0];
@@ -22,18 +17,13 @@
 	}
 
 	async function importProducts(products) {
-		const categoryData = await selectCategory();
 		let result;
-		let existingProduct = null;
-		let prodId;
+		const categoryData = await selectCategory();
 		for (let i = 0; i < products.length; i++) {
 			let selectedCategoryRow = categoryData.find((x) => x.name === products[i].category);
 			if (!selectedCategoryRow) {
 				selectedCategoryRow = insertCategory(products[i].category);
 			}
-
-			existingProduct = await selectProduct(products[i].sku);
-			// console.log('existingProduct', existingProduct);
 
 			let productRow = {
 				sku: products[i].sku,
@@ -49,11 +39,10 @@
 				product_category_id: selectedCategoryRow.id,
 				updated: new Date()
 			};
-			if (existingProduct.length != 0) productRow.id = existingProduct[0].id;
-			result = await updateProduct(productRow, products[i].sku);
+			result = await upsertProduct(productRow);
 			productRow = [];
-			// console.log('Update result', result);
 		}
+		console.log('Finsih upsert');
 	}
 </script>
 
