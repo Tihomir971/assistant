@@ -39,7 +39,7 @@
 	async function openEditModal() {
 		editProduct = await selectProduct(selectedRowIds[0]);
 		if (editProduct) {
-			console.log('openEditModal', editProduct);
+			// console.log('openEditModal', editProduct);
 			openEdit = true;
 		}
 	}

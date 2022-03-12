@@ -1,25 +1,6 @@
 <script>
 	import { Modal, TextInput, Toggle } from 'carbon-components-svelte';
 	export let openEdit = false;
-	// export let editProduct = {
-	// 	name: null,
-	// 	brand: null,
-	// 	condition: null,
-	// 	enabled: null,
-	// 	gtin: null,
-	// 	id: null,
-	// 	mpn: null,
-	// 	price: null,
-	// 	pricelastpo: null,
-	// 	product_category_id: null,
-	// 	qtyonhand: null,
-	// 	sku: null,
-	// 	special_price: null,
-	// 	attributes: null,
-	// 	updated: null,
-	// 	created: null
-	// };
-	// $: console.log('In modal', editProduct);
 	export let name;
 	export let brand;
 	export let condition;
@@ -36,6 +17,42 @@
 	export let attributes;
 	export let updated;
 	export let created;
+	let editProduct;
+	editProduct = {
+		brand: brand,
+		condition: condition,
+		enabled: enabled,
+		gtin: gtin,
+		id: id,
+		mpn: mpn,
+		price: price,
+		pricelastpo: pricelastpo,
+		product_category_id: product_category_id,
+		qtyonhand: qtyonhand,
+		sku: sku,
+		special_price: special_price,
+		attributes: attributes,
+		updated: updated,
+		created: created
+	};
+	$: editProduct.name = { name };
+	$: editProduct.brand = { brand };
+	$: editProduct.condition = { condition };
+	$: editProduct.enabled = { enabled };
+	$: editProduct.gtin = { gtin };
+	$: editProduct.id = { id };
+	$: editProduct.mpn = { mpn };
+	$: editProduct.price = { price };
+	$: editProduct.pricelastpo = { pricelastpo };
+	$: editProduct.product_category_id = { product_category_id };
+	$: editProduct.qtyonhand = { qtyonhand };
+	$: editProduct.sku = { sku };
+	$: editProduct.special_price = { special_price };
+	$: editProduct.attributes = { attributes };
+	$: editProduct.updated = { updated };
+	$: editProduct.created = { created };
+
+	$: console.log('editProduct', editProduct.enabled);
 </script>
 
 <Modal
