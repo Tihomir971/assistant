@@ -2,6 +2,10 @@
 	// import { catalogStore } from './catalogStore.js';
 	import { supabase } from '$lib/db.js';
 	import { catalogStore, deleteProduct, selectProduct } from '$lib/catalog/catalogStore';
+	import ProductModal from '$lib/catalog/ProductModal.svelte';
+	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+	import Save16 from 'carbon-icons-svelte/lib/Save16';
+	import Delete16 from 'carbon-icons-svelte/lib/Delete16';
 	import {
 		Button,
 		DataTable,
@@ -10,31 +14,14 @@
 		ToolbarSearch,
 		DataTableSkeleton,
 		ToolbarBatchActions,
-		Pagination,
-		Modal,
-		TextInput
+		Pagination
 	} from 'carbon-components-svelte';
-	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
-	import Save16 from 'carbon-icons-svelte/lib/Save16';
-	import Delete16 from 'carbon-icons-svelte/lib/Delete16';
+	let selectedRowIds;
+	let pageSize = 16;
+	let page;
 	let countProducts;
-	let editProduct = {
-		name: null,
-		brand: null,
-		condition: null,
-		enabled: false,
-		gtin: null,
-		id: null,
-		mpn: null,
-		price: null,
-		pricelastpo: null,
-		product_category_id: null,
-		qtyonhand: null,
-		sku: null,
-		special_price: null,
-		updated: null,
-		created: null
-	};
+	let openEdit = false;
+	let editProduct = null;
 
 	$: $catalogStore, (promise = fetchData());
 
@@ -50,10 +37,11 @@
 	}
 
 	async function openEditModal() {
-		console.log('editProduct');
 		editProduct = await selectProduct(selectedRowIds[0]);
-		console.log(editProduct);
-		openEdit = true;
+		if (editProduct) {
+			console.log('openEditModal', editProduct);
+			openEdit = true;
+		}
 	}
 
 	async function deleteData() {
@@ -63,10 +51,6 @@
 	}
 
 	let promise = fetchData();
-	let selectedRowIds;
-	let pageSize = 16;
-	let page;
-	let openEdit = false;
 </script>
 
 {#await promise}
@@ -167,29 +151,6 @@
 	<pre>{error}</pre>
 {/await}
 
-<Modal
-	bind:open={openEdit}
-	modalHeading="Edit product"
-	primaryButtonText="Save and Close"
-	secondaryButtonText="Cancel"
-	on:click:button--secondary={() => (openEdit = false)}
-	on:open
-	on:close
-	on:submit
->
-	<TextInput labelText="id" bind:value={editProduct.id} />
-	<TextInput labelText="brand" bind:value={editProduct.brand} />
-	<TextInput labelText="name" bind:value={editProduct.name} />
-	<TextInput labelText="condition" bind:value={editProduct.condition} />
-	<TextInput labelText="enabled" bind:value={editProduct.enabled} />
-	<TextInput labelText="gtin" bind:value={editProduct.gtin} />
-	<TextInput labelText="mpn" bind:value={editProduct.mpn} />
-	<TextInput labelText="gtin" bind:value={editProduct.gtin} />
-	<TextInput labelText="pricelastpo" bind:value={editProduct.pricelastpo} />
-	<TextInput labelText="product_category_id" bind:value={editProduct.product_category_id} />
-	<TextInput labelText="qtyonhand" bind:value={editProduct.qtyonhand} />
-	<TextInput labelText="sku" bind:value={editProduct.sku} />
-	<TextInput labelText="special_price" bind:value={editProduct.special_price} />
-	<TextInput labelText="updated" bind:value={editProduct.updated} />
-	<TextInput labelText="created" bind:value={editProduct.created} />
-</Modal>
+{#if openEdit === true}
+	<ProductModal openEdit {...editProduct} />
+{/if}

@@ -35,6 +35,7 @@ export const upsertProduct = async (productRow) => {
 
 export const selectProduct = async (id) => {
 	const { data, error } = await supabase.from('product').select().eq('id', id);
+	console.log('Data', data);
 	if (data) return data[0];
 	return error;
 };

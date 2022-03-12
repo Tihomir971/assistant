@@ -10,13 +10,13 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@supabase/supabase-js": "^1.30.7",
+		"@supabase/supabase-js": "^1.31.1",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"carbon-components-svelte": "^0.60.0",
 		"carbon-icons-svelte": "^10.44.4",
 		"carbon-preprocess-svelte": "^0.6.0",
-		"eslint": "^8.10.0",
+		"eslint": "^8.11.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^3.4.1",
 		"prettier": "^2.5.1",
