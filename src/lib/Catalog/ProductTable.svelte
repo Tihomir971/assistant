@@ -14,7 +14,8 @@
 		ToolbarSearch,
 		DataTableSkeleton,
 		ToolbarBatchActions,
-		Pagination
+		Pagination,
+		Row
 	} from 'carbon-components-svelte';
 	let selectedRowIds;
 	let pageSize = 16;
@@ -77,11 +78,14 @@
 				display: (number) =>
 					new Intl.NumberFormat('sr-Latn-RS', { minimumFractionDigits: 2 }).format(number)
 			},
+			{ key: 'margin', value: '%' },
 			{
 				key: 'special_price',
 				value: 'Spec. Price',
 				display: (number) =>
-					new Intl.NumberFormat('sr-Latn-RS', { minimumFractionDigits: 2 }).format(number)
+					new Intl.NumberFormat('sr-Latn-RS', {
+						minimumFractionDigits: 2
+					}).format(number)
 			},
 			{
 				key: 'price',
@@ -124,7 +128,7 @@
 				/>
 			</ToolbarContent>
 		</Toolbar>
-		<svelte:fragment slot="cell" let:cell>
+		<svelte:fragment slot="cell" let:cell let:row>
 			{#if cell.key === 'pricelastpo' || cell.key === 'price' || cell.key === 'special_price'}
 				<div style="text-align:right">
 					{new Intl.NumberFormat('sr-Latn-RS', { minimumFractionDigits: 2 }).format(cell.value)}
@@ -133,6 +137,13 @@
 				<div style="text-align:right">
 					{new Intl.NumberFormat('sr-Latn-RS').format(cell.value)}
 				</div>
+			{:else if cell.key === 'margin'}
+				<div style="text-align:right">
+					{new Intl.NumberFormat('sr-Latn-RS').format(
+						((row.special_price / 1.2 / row.pricelastpo - 1) * 100).toFixed(2)
+					)}
+				</div>
+				<!-- {(row.price / 1.2 / row.pricelastpo - 1) * 100} -->
 			{:else}
 				{cell.value}
 			{/if}

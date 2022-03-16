@@ -12,6 +12,7 @@
 	"devDependencies": {
 		"@supabase/supabase-js": "^1.31.1",
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-node": "^1.0.0-next.72",
 		"@sveltejs/kit": "next",
 		"carbon-components-svelte": "^0.60.0",
 		"carbon-icons-svelte": "^10.45.0",
@@ -19,12 +20,12 @@
 		"eslint": "^8.11.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^3.4.1",
-		"prettier": "^2.5.1",
+		"prettier": "^2.6.0",
 		"prettier-plugin-svelte": "^2.6.0",
 		"svelte": "^3.46.4"
 	},
 	"type": "module",
 	"dependencies": {
-		"papaparse": "^5.3.1"
+		"papaparse": "^5.3.2"
 	}
 }

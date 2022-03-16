@@ -20,7 +20,6 @@ export const insertCategory = async (newCategory) => {
 	return data;
 };
 
-
 // Product Tables
 export const upsertProduct = async (productRow) => {
 	try {
@@ -53,7 +52,32 @@ export const deleteProduct = async (selectedRowIds) => {
 
 // Product Family Tables
 export const selectFamilies = async () => {
-	const { data, error } = await supabase.from('product_family').select();
+	const { data, error } = await supabase
+		.from('product_family')
+		.select()
+		.order('code', { ascending: true });
+	if (data) console.log('selectFamilies Data', data);
+	if (error) console.log('selectFamilies Error', error);
+	return data;
+};
+
+// Product Attribute Tables
+export const selectAttribute = async () => {
+	const { data, error } = await supabase
+		.from('product_attribute')
+		.select()
+		.order('code', { ascending: true });
+	if (data) console.log('selectFamilies Data', data);
+	if (error) console.log('selectFamilies Error', error);
+	return data;
+};
+
+// Product Attribute Option Tables
+export const selectAttributeOption = async () => {
+	const { data, error } = await supabase
+		.from('product_attribute_option')
+		.select()
+		.order('code', { ascending: true });
 	if (data) console.log('selectFamilies Data', data);
 	if (error) console.log('selectFamilies Error', error);
 	return data;

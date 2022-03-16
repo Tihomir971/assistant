@@ -47,6 +47,7 @@
 				aria-current={$page.url.pathname === '/repos' ? 'page' : undefined}
 			/>
 			<HeaderNavItem text="Import" href="/catalog/import" />
+			<HeaderNavItem text="Attribute" href="/catalog/family" />
 		{/if}
 	</HeaderNav>
 	<HeaderUtilities>
