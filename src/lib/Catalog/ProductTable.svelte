@@ -140,7 +140,7 @@
 			{:else if cell.key === 'margin'}
 				<div style="text-align:right">
 					{new Intl.NumberFormat('sr-Latn-RS').format(
-						((row.special_price / 1.2 / row.pricelastpo - 1) * 100).toFixed(2)
+						((row.special_price / 1.2 / row.pricelastpo - 1) * 100 ).toFixed(2)
 					)}
 				</div>
 				<!-- {(row.price / 1.2 / row.pricelastpo - 1) * 100} -->
