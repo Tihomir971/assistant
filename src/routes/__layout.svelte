@@ -1,6 +1,6 @@
 <script>
 	import 'carbon-components-svelte/css/all.css';
-	import Theme from 'src/lib/ui/Theme.svelte';
+	import Theme from '$lib/ui/Theme.svelte';
 	import Header from '$lib/ui/Header.svelte';
 	import { Content, Grid } from 'carbon-components-svelte';
 </script>
