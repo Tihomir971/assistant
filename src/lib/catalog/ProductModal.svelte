@@ -51,8 +51,6 @@
 	$: editProduct.attributes = { attributes };
 	$: editProduct.updated = { updated };
 	$: editProduct.created = { created };
-
-	$: console.log('editProduct', editProduct.enabled);
 </script>
 
 <Modal

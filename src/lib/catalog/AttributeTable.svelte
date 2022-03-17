@@ -3,7 +3,6 @@
 	import { DataTable, DataTableSkeleton } from 'carbon-components-svelte';
 
 	let familyData = selectAttribute();
-	console.log('selectAttribute', familyData);
 </script>
 
 {#await familyData}

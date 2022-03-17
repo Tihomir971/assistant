@@ -22,20 +22,8 @@ export default {
 	},
 	signIn(email, password) {
 		return supabase.auth.signIn({ email, password });
-		// try {
-		// 	const { user, error } = await supabase.auth.signIn({ email, password });
-		// 	if (error) throw error;
-		// } catch (error) {
-		// 	console.log(error);
-		// 	alert(error.error_description || error.message);
-		// }
 	},
 	signOut() {
 		return supabase.auth.signOut();
 	}
-	// async getCategory() {
-	// 	let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
-	// 	if (error) throw new Error(error.message);
-	// 	return data;
-	// }
 };

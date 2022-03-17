@@ -45,8 +45,8 @@ export const deleteProduct = async (selectedRowIds) => {
 	for (let i = 0; i < selectedRowIds.length; i++) {
 		console.log('Delete data', selectedRowIds[i]);
 		const { data, error } = await supabase.from('product').delete().eq('id', selectedRowIds[i]);
-		if (data) console.log('Delete data', data);
-		if (error) console.log('Delete error', error);
+		if (error) return error;
+		if (data) return data;
 	}
 };
 
@@ -56,8 +56,6 @@ export const selectFamilies = async () => {
 		.from('product_family')
 		.select()
 		.order('code', { ascending: true });
-	if (data) console.log('selectFamilies Data', data);
-	if (error) console.log('selectFamilies Error', error);
 	return data;
 };
 
@@ -67,9 +65,8 @@ export const selectAttribute = async () => {
 		.from('product_attribute')
 		.select()
 		.order('code', { ascending: true });
-	if (data) console.log('selectFamilies Data', data);
-	if (error) console.log('selectFamilies Error', error);
-	return data;
+	if (error) return error;
+	if (data) return data;
 };
 
 // Product Attribute Option Tables
@@ -78,7 +75,6 @@ export const selectAttributeOption = async () => {
 		.from('product_attribute_option')
 		.select()
 		.order('code', { ascending: true });
-	if (data) console.log('selectFamilies Data', data);
-	if (error) console.log('selectFamilies Error', error);
-	return data;
+	if (error) return error;
+	if (data) return data;
 };
