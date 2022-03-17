@@ -10,10 +10,11 @@
     "script": "svelte-kit dev",
     "pkgname": "assistant",
     "err": {
-      "name": "Error",
+      "name": "pnpm",
       "message": "assistant@0.0.1 dev: `svelte-kit dev`\nExit status 1",
       "code": "ELIFECYCLE",
-      "stack": "Error: assistant@0.0.1 dev: `svelte-kit dev`\nExit status 1\n    at EventEmitter.<anonymous> (C:\\Users\\tihom\\.node\\corepack\\pnpm\\6.11.0\\dist\\pnpm.cjs:104774:20)\n    at EventEmitter.emit (node:events:390:28)\n    at ChildProcess.<anonymous> (C:\\Users\\tihom\\.node\\corepack\\pnpm\\6.11.0\\dist\\pnpm.cjs:93080:18)\n    at ChildProcess.emit (node:events:390:28)\n    at maybeClose (node:internal/child_process:1064:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
+      "stack": "pnpm: assistant@0.0.1 dev: `svelte-kit dev`\nExit status 1\n    at EventEmitter.<anonymous> (C:\\Users\\tihom\\.node\\corepack\\pnpm\\6.22.2\\dist\\pnpm.cjs:103408:20)\n    at EventEmitter.emit (node:events:520:28)\n    at ChildProcess.<anonymous> (C:\\Users\\tihom\\.node\\corepack\\pnpm\\6.22.2\\dist\\pnpm.cjs:91337:18)\n    at ChildProcess.emit (node:events:520:28)\n    at maybeClose (node:internal/child_process:1092:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5)"
     }
-  }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
 }

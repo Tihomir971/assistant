@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: assisitant
+    env: node
+    buildCommand: pnpm install && pnpm run build
+    startCommand: node build/index.js
