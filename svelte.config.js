@@ -6,7 +6,6 @@ import { optimizeImports } from 'carbon-preprocess-svelte';
 const config = {
 	preprocess: [optimizeImports()],
 	kit: {
-		target: '#svelte',
 		adapter: adapter()
 	}
 };
