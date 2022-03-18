@@ -99,7 +99,7 @@
 			},
 			{
 				key: 'enabled',
-				value: 'Enabled'
+				value: 'Active'
 			}
 		]}
 		{pageSize}
@@ -140,10 +140,13 @@
 			{:else if cell.key === 'margin'}
 				<div style="text-align:right">
 					{new Intl.NumberFormat('sr-Latn-RS').format(
-						((row.special_price / 1.2 / row.pricelastpo - 1) * 100 ).toFixed(2)
+						((row.special_price / 1.2 / row.pricelastpo - 1) * 100).toFixed(2)
 					)}
 				</div>
-				<!-- {(row.price / 1.2 / row.pricelastpo - 1) * 100} -->
+			{:else if cell.key === 'enabled'}
+				<div>
+					{cell.value ? 'Enabled' : 'Disabled'}
+				</div>
 			{:else}
 				{cell.value}
 			{/if}
