@@ -56,6 +56,7 @@ export const selectFamilies = async () => {
 		.from('product_family')
 		.select()
 		.order('code', { ascending: true });
+	if (error) return error;
 	return data;
 };
 

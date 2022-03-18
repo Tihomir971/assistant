@@ -5,7 +5,7 @@
 	export let brand;
 	export let condition;
 	export let enabled;
-	export let gtin;
+	export let barcode;
 	export let id;
 	export let mpn;
 	export let price;
@@ -22,7 +22,7 @@
 		brand: brand,
 		condition: condition,
 		enabled: enabled,
-		gtin: gtin,
+		barcode: barcode,
 		id: id,
 		mpn: mpn,
 		price: price,
@@ -39,7 +39,7 @@
 	$: editProduct.brand = { brand };
 	$: editProduct.condition = { condition };
 	$: editProduct.enabled = { enabled };
-	$: editProduct.gtin = { gtin };
+	$: editProduct.barcode = { barcode };
 	$: editProduct.id = { id };
 	$: editProduct.mpn = { mpn };
 	$: editProduct.price = { price };
@@ -70,7 +70,7 @@
 	<TextInput labelText="mpn" bind:value={mpn} />
 	<TextInput labelText="name" bind:value={name} />
 	<TextInput labelText="condition" bind:value={condition} />
-	<TextInput labelText="gtin" bind:value={gtin} />
+	<TextInput labelText="barcode" bind:value={barcode} />
 	<TextInput labelText="pricelastpo" bind:value={pricelastpo} />
 	<TextInput labelText="price" bind:value={price} />
 	<TextInput labelText="special_price" bind:value={special_price} />

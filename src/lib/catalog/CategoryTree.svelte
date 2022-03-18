@@ -21,8 +21,6 @@
 	/* $: value, treeview?.expandNodes((node) => /^IBM/.test(node.text)); */
 
 	async function fetchData() {
-		// let { data, error } = await supabase.from('product_category').select('id,name,parent_id');
-		// if (error) throw new Error(error.message);
 		const data = await selectCategory();
 
 		//Change column name
@@ -96,7 +94,7 @@
 			icon={Minimize20}
 			on:click={treeview?.collapseAll}
 		/>
-		<ToolbarSearch bind:value />
+		<ToolbarSearch bind:value on:input={console.log(value)} />
 	</ToolbarContent>
 </Toolbar>
 {#await promise}

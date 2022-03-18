@@ -22,7 +22,11 @@
 		for (let i = 0; i < products.length; i++) {
 			let selectedCategoryRow = categoryData.find((x) => x.name === products[i].category);
 			if (!selectedCategoryRow) {
-				selectedCategoryRow = insertCategory(products[i].category);
+				if (!products[i].category) {
+					selectedCategoryRow = 'Neklasifikovano';
+				} else {
+					selectedCategoryRow = insertCategory(products[i].category);
+				}
 			}
 
 			let productRow = {
@@ -30,7 +34,7 @@
 				brand: products[i].brand,
 				mpn: products[i].mpn,
 				name: products[i].name,
-				// gtin: products[i].gtin,
+				// barcode: products[i].barcode,
 				price: products[i].price,
 				qtyonhand: products[i].qty,
 				condition: products[i].condition,
