@@ -101,7 +101,7 @@
 	<p>Fetching data...</p>
 {:then children}
 	<TreeView
-		style="overflow: auto"
+		style="overflow: auto; max-height: 85vh"
 		hideLabel="true"
 		{children}
 		bind:activeId
