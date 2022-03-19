@@ -2,6 +2,7 @@ import { supabase } from '$lib/db.js';
 import { writable } from 'svelte/store';
 
 export let catalogStore = writable(0);
+export let productFilter = writable({ eq: { qtyonhand: 0 } });
 
 // Category Tables
 export const selectCategory = async () => {

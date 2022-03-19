@@ -74,14 +74,14 @@
 			},
 			{
 				key: 'pricelastpo',
-				value: 'Last Price',
+				value: 'Purchase',
 				display: (number) =>
 					new Intl.NumberFormat('sr-Latn-RS', { minimumFractionDigits: 2 }).format(number)
 			},
 			{ key: 'margin', value: '%' },
 			{
 				key: 'special_price',
-				value: 'Spec. Price',
+				value: 'Special',
 				display: (number) =>
 					new Intl.NumberFormat('sr-Latn-RS', {
 						minimumFractionDigits: 2
@@ -89,7 +89,7 @@
 			},
 			{
 				key: 'price',
-				value: 'Price',
+				value: 'Retail',
 				display: (number) =>
 					new Intl.NumberFormat('sr-Latn-RS', { minimumFractionDigits: 2 }).format(number)
 			},
