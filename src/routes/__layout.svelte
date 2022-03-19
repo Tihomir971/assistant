@@ -8,11 +8,19 @@
 <Theme persist>
 	<Header />
 
-	<Content
-		style="background-image: url('../static/sun-tornado.svg'); background-size: cover;padding-left: 0; padding-right: 0; min-height: calc(100vh - 3rem)"
-	>
+	<Content>
 		<Grid fullWidth>
 			<slot />
 		</Grid>
 	</Content>
 </Theme>
+
+<style>
+	:global(.bx--content) {
+		background-image: url('../static/sun-tornado.svg');
+		background-size: cover;
+		padding-left: 0;
+		padding-right: 0;
+		min-height: calc(100vh - 3rem);
+	}
+</style>
