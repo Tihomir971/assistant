@@ -1,9 +1,15 @@
 <script>
 	// import { catalogStore } from './catalogStore.js';
 	import { supabase } from '$lib/db.js';
-	import { catalogStore, deleteProduct, selectProduct } from '$lib/catalog/catalogStore';
+	import {
+		catalogStore,
+		productFilter,
+		deleteProduct,
+		selectProduct
+	} from '$lib/catalog/catalogStore';
 	import ProductModal from '$lib/catalog/ProductModal.svelte';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
+	import ExpandAll16 from 'carbon-icons-svelte/lib/ExpandAll16';
 	import Save16 from 'carbon-icons-svelte/lib/Save16';
 	import Delete16 from 'carbon-icons-svelte/lib/Delete16';
 	import {
@@ -23,15 +29,22 @@
 	let countProducts;
 	let openEdit = false;
 	let editProduct = null;
-
+	let tools = { stock: false };
 	$: $catalogStore, (promise = fetchData());
-
+	$: activeCategory = $productFilter.activeCategory;
 	async function fetchData() {
-		let { data, error, count } = await supabase
-			.from('product')
-			.select('*', { count: 'exact' })
-			.eq('product_category_id', $catalogStore)
-			.not('qtyonhand', 'eq', 0);
+		console.log($productFilter);
+		let productQuery = supabase.from('product').select('*', { count: 'exact' });
+		if ($productFilter.filterOnHand) {
+			productQuery = productQuery.not('qtyonhand', 'eq', 0);
+		}
+		if ($productFilter.activeCategory === 999999) {
+			productQuery = productQuery.is('product_category_id', null);
+		} else {
+			productQuery = productQuery.eq('product_category_id', $productFilter.activeCategory);
+		}
+
+		const { data, error, count } = await productQuery;
 		if (error) throw new Error(error.message);
 		countProducts = count;
 		return data;
@@ -117,6 +130,18 @@
 			</ToolbarBatchActions>
 			<ToolbarContent>
 				<ToolbarSearch />
+				<Button
+					kind="ghost"
+					size="field"
+					iconDescription="Toggle on Stock"
+					isSelected={tools.stock === false}
+					icon={ExpandAll16}
+					on:click={() => {
+						tools.stock = !tools.stock;
+						$productFilter.filterOnHand = !$productFilter.filterOnHand;
+						promise = fetchData();
+					}}
+				/>
 				<Button
 					kind="ghost"
 					size="field"

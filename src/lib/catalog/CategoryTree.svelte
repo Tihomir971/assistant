@@ -1,8 +1,8 @@
 <script>
-	import { catalogStore, selectCategory } from '$lib/catalog/catalogStore';
+	import { catalogStore, productFilter, selectCategory } from '$lib/catalog/catalogStore';
 	// import { selectCategory } from '$lib/stores/catalog';
 	import UpdateNow20 from 'carbon-icons-svelte/lib/UpdateNow20';
-	import Minimize20 from 'carbon-icons-svelte/lib/Minimize20';
+	import CollapseCategories20 from 'carbon-icons-svelte/lib/CollapseCategories20';
 	import AddAlt20 from 'carbon-icons-svelte/lib/AddAlt20';
 	import SubtractAlt20 from 'carbon-icons-svelte/lib/SubtractAlt20';
 	import {
@@ -22,6 +22,7 @@
 
 	async function fetchData() {
 		const data = await selectCategory();
+		let unclassified = { id: 999999, text: 'Unclassified products' };
 
 		//Change column name
 		data.forEach((item) => {
@@ -41,12 +42,14 @@
 				delete hashTable[aData.id].parent_id;
 			});
 
+			// Clean "children" nodes
 			const cleanUp = (data) =>
 				data.forEach((n) =>
 					n.children && n.children.length ? cleanUp(n.children) : delete n.children
 				);
 
 			cleanUp(dataTree);
+			dataTree.push(unclassified);
 
 			return dataTree;
 		}
@@ -91,7 +94,7 @@
 			kind="ghost"
 			size="field"
 			iconDescription="Collapse All"
-			icon={Minimize20}
+			icon={CollapseCategories20}
 			on:click={treeview?.collapseAll}
 		/>
 		<ToolbarSearch bind:value on:input={console.log(value)} />
@@ -109,6 +112,7 @@
 		bind:this={treeview}
 		on:select={() => {
 			catalogStore.set(activeId);
+			$productFilter.activeCategory = activeId;
 		}}
 	/>
 {:catch error}
