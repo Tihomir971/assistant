@@ -49,6 +49,20 @@
 				);
 
 			cleanUp(dataTree);
+
+			// Sort Tree by name
+			dataTree.sort((a, b) => {
+				let fa = a.text.toLowerCase(),
+					fb = b.text.toLowerCase();
+
+				if (fa < fb) {
+					return -1;
+				}
+				if (fa > fb) {
+					return 1;
+				}
+				return 0;
+			});
 			dataTree.push(unclassified);
 
 			return dataTree;
@@ -97,7 +111,6 @@
 			icon={CollapseCategories20}
 			on:click={treeview?.collapseAll}
 		/>
-		<ToolbarSearch bind:value on:input={console.log(value)} />
 	</ToolbarContent>
 </Toolbar>
 {#await promise}

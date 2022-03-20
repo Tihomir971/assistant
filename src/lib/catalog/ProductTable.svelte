@@ -35,7 +35,7 @@
 	async function fetchData() {
 		console.log($productFilter);
 		let productQuery = supabase.from('product').select('*', { count: 'exact' });
-		if ($productFilter.filterOnHand) {
+		if (!$productFilter.filterOnHand) {
 			productQuery = productQuery.not('qtyonhand', 'eq', 0);
 		}
 		if ($productFilter.activeCategory === 999999) {
@@ -129,7 +129,7 @@
 				<Button icon={Save16}>Toggle status</Button>
 			</ToolbarBatchActions>
 			<ToolbarContent>
-				<ToolbarSearch />
+				<ToolbarSearch shouldFilterRows />
 				<Button
 					kind="ghost"
 					size="field"
