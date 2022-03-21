@@ -12,6 +12,7 @@
 	import ExpandAll16 from 'carbon-icons-svelte/lib/ExpandAll16';
 	import Save16 from 'carbon-icons-svelte/lib/Save16';
 	import Delete16 from 'carbon-icons-svelte/lib/Delete16';
+	import Edit16 from 'carbon-icons-svelte/lib/Edit16';
 	import {
 		Button,
 		DataTable,
@@ -30,10 +31,10 @@
 	let openEdit = false;
 	let editProduct = null;
 	let tools = { stock: false };
+	let selectedRow = null;
 	$: $catalogStore, (promise = fetchData());
 	$: activeCategory = $productFilter.activeCategory;
 	async function fetchData() {
-		console.log($productFilter);
 		let productQuery = supabase.from('product').select('*', { count: 'exact' });
 		if (!$productFilter.filterOnHand) {
 			productQuery = productQuery.not('qtyonhand', 'eq', 0);
@@ -50,10 +51,9 @@
 		return data;
 	}
 
-	async function openEditModal() {
-		editProduct = await selectProduct(selectedRowIds[0]);
+	async function openEditModal(id) {
+		editProduct = await selectProduct(id);
 		if (editProduct) {
-			// console.log('openEditModal', editProduct);
 			openEdit = true;
 		}
 	}
@@ -121,6 +121,10 @@
 		sortable
 		selectable
 		bind:selectedRowIds
+		on:click:row={(e) => {
+			selectedRow = e.detail.id;
+			console.log('selectedProductRow', e);
+		}}
 	>
 		<Toolbar>
 			<ToolbarBatchActions>
@@ -130,6 +134,13 @@
 			</ToolbarBatchActions>
 			<ToolbarContent>
 				<ToolbarSearch shouldFilterRows />
+				<Button
+					kind="ghost"
+					size="field"
+					iconDescription="Edit"
+					icon={Edit16}
+					on:click={openEditModal(selectedRow)}
+				/>
 				<Button
 					kind="ghost"
 					size="field"

@@ -7,6 +7,20 @@ export let productFilter = writable({ filterOnHand: false, activeCategory: 99999
 // Category Tables
 export const selectCategory = async () => {
 	const { data, error } = await supabase.from('product_category').select('id,name,parent_id');
+
+	// Sort Tree by name
+	data.sort((a, b) => {
+		let fa = a.name.toLowerCase(),
+			fb = b.name.toLowerCase();
+
+		if (fa < fb) {
+			return -1;
+		}
+		if (fa > fb) {
+			return 1;
+		}
+		return 0;
+	});
 	if (error) {
 		return console.error(error);
 	}
@@ -51,16 +65,6 @@ export const deleteProduct = async (selectedRowIds) => {
 	}
 };
 
-// Product Family Tables
-export const selectFamilies = async () => {
-	const { data, error } = await supabase
-		.from('product_family')
-		.select()
-		.order('code', { ascending: true });
-	if (error) return error;
-	return data;
-};
-
 // Product Attribute Tables
 export const selectAttribute = async () => {
 	const { data, error } = await supabase
@@ -79,4 +83,38 @@ export const selectAttributeOption = async () => {
 		.order('code', { ascending: true });
 	if (error) return error;
 	if (data) return data;
+};
+
+// export family {
+// 		delete: async (id) => {
+// 			const { data, error } = await supabase.from('product_family').delete().eq('id', id);
+// 			if (data) console.log(data);
+// 			if (error) console.log(error);
+// 		},
+// 		select: async () => {
+// 			const { data, error } = await supabase
+// 				.from('product_family')
+// 				.select()
+// 				.order('code', { ascending: true });
+// 			if (error) console.log(error);
+// 			return data;
+// 		}
+// 	}
+// };
+
+export const familySelect = async () => {
+	const { data, error } = await supabase
+		.from('product_family')
+		.select()
+		.order('code', { ascending: true });
+	if (error) console.log(error);
+	return data;
+};
+export const familyDelete = async (id) => {
+	const { data, error } = await supabase.from('product_family').delete().eq('id', id);
+	if (error) console.log(error);
+	return data;
+};
+export const familyAdd = async () => {
+	console.log('id');
 };

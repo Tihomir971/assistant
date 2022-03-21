@@ -1,5 +1,5 @@
 <script>
-	import { Modal, TextInput, Toggle } from 'carbon-components-svelte';
+	import { Modal, Grid, Row, Column, ComboBox, TextInput, Toggle } from 'carbon-components-svelte';
 	export let openEdit = false;
 	export let name;
 	export let brand;
@@ -63,20 +63,50 @@
 	on:close
 	on:submit
 >
-	<TextInput labelText="id" bind:value={id} />
-	<Toggle labelText="Enabled" bind:toggled={enabled} />
-	<TextInput labelText="sku" bind:value={sku} />
-	<TextInput labelText="brand" bind:value={brand} />
-	<TextInput labelText="mpn" bind:value={mpn} />
-	<TextInput labelText="name" bind:value={name} />
-	<TextInput labelText="condition" bind:value={condition} />
-	<TextInput labelText="barcode" bind:value={barcode} />
-	<TextInput labelText="pricelastpo" bind:value={pricelastpo} />
-	<TextInput labelText="price" bind:value={price} />
-	<TextInput labelText="special_price" bind:value={special_price} />
-	<TextInput labelText="product_category_id" bind:value={product_category_id} />
-	<TextInput labelText="qtyonhand" bind:value={qtyonhand} />
-	<TextInput labelText="created" bind:value={created} />
-	<TextInput labelText="updated" bind:value={updated} />
-	<TextInput labelText="attributes" bind:value={attributes} />
+	<Grid fullWidth>
+		<Row>
+			<Column lg={4}>
+				<TextInput labelText="ID" bind:value={id} />
+			</Column>
+			<Column lg={4}>
+				<TextInput labelText="SKU" bind:value={sku} />
+			</Column>
+			<Column lg={4}>
+				<ComboBox
+					titleText="Condition"
+					placeholder="Select condition"
+					items={[
+						{ id: '0', text: 'New' },
+						{ id: '1', text: 'Used' },
+						{ id: '2', text: 'Refurbished' }
+					]}
+				/>
+				<TextInput labelText="Condition" bind:value={condition} />
+			</Column>
+			<Column lg={4}>
+				<Toggle labelText="Enabled" bind:toggled={enabled} />
+			</Column>
+		</Row>
+
+		<TextInput labelText="Brand" bind:value={brand} />
+		<TextInput labelText="MPN" bind:value={mpn} />
+		<TextInput labelText="Name" bind:value={name} />
+
+		<TextInput labelText="Barcode" bind:value={barcode} />
+		<TextInput labelText="Pricelastpo" bind:value={pricelastpo} />
+		<TextInput labelText="Price" bind:value={price} />
+		<TextInput labelText="Special_price" bind:value={special_price} />
+		<TextInput labelText="Product_category_id" bind:value={product_category_id} />
+		<TextInput labelText="Qtyonhand" bind:value={qtyonhand} />
+		<Row>
+			<Column lg={8}>
+				<p>{created}</p>
+				<TextInput labelText="Created" bind:value={created} />
+			</Column>
+			<Column lg={8}>
+				<TextInput labelText="Updated" bind:value={updated} />
+			</Column>
+		</Row>
+		<TextInput labelText="Attributes" bind:value={attributes} />
+	</Grid>
 </Modal>

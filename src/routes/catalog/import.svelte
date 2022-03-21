@@ -21,15 +21,9 @@
 		const categoryData = await selectCategory();
 		for (let i = 0; i < products.length; i++) {
 			let selectedCategoryRow = categoryData.find((x) => x.name === products[i].category);
-			console.log('selectedCategoryRow', selectedCategoryRow);
+			console.log(i, '/', products.length);
 			if (!selectedCategoryRow) {
 				selectedCategoryRow = { id: null };
-				console.log('selectedCategoryRow.Id', selectedCategoryRow.id);
-				// if (!products[i].category) {
-				// 	selectedCategoryRow = 'Neklasifikovano';
-				// } else {
-				// 	selectedCategoryRow = insertCategory(products[i].category);
-				// }
 			}
 
 			let productRow = {
