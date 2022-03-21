@@ -115,6 +115,15 @@ export const familyDelete = async (id) => {
 	if (error) console.log(error);
 	return data;
 };
-export const familyAdd = async () => {
-	console.log('id');
+export const familyAdd = async (code) => {
+	const { data, error } = await supabase.from('product_family').insert([{ code: code }]);
+
+	if (error) console.log('Error inserting Family', error);
+	return data;
+};
+export const familyUpdate = async (id, code) => {
+	const { data, error } = await supabase.from('product_family').update({ code: code }).eq('id', id);
+
+	if (error) console.log('Error updating Family', error);
+	return data;
 };

@@ -1,5 +1,5 @@
 <script>
-	import { catalogStore, selectAttributeOption } from '$lib/catalog/catalogStore';
+	import { selectAttributeOption } from '$lib/catalog/catalogStore';
 	import AddAlt16 from 'carbon-icons-svelte/lib/AddAlt16';
 	import SubtractAlt16 from 'carbon-icons-svelte/lib/SubtractAlt16';
 	import Edit16 from 'carbon-icons-svelte/lib/Edit16';
@@ -13,7 +13,6 @@
 	} from 'carbon-components-svelte';
 
 	let attributeOptionData = selectAttributeOption();
-	console.log('selectAttributeOption', attributeOptionData);
 </script>
 
 {#await attributeOptionData}

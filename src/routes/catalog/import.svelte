@@ -21,7 +21,7 @@
 		const categoryData = await selectCategory();
 		for (let i = 0; i < products.length; i++) {
 			let selectedCategoryRow = categoryData.find((x) => x.name === products[i].category);
-			console.log(i, '/', products.length);
+			console.log(i + 1, 'of', products.length + 1);
 			if (!selectedCategoryRow) {
 				selectedCategoryRow = { id: null };
 			}

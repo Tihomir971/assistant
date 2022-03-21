@@ -64,6 +64,7 @@
 
 <Toolbar>
 	<ToolbarContent>
+		<ToolbarSearch bind:value on:input={console.log('search value:', value)} />
 		<Button
 			kind="ghost"
 			size="field"
